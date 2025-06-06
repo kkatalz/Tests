@@ -41,4 +41,19 @@ describe("getProduct", () => {
   });
 });
 
-
+// Test Exceptions
+describe("registerUser", () => {
+  it("should throw if username is falsy", () => {
+    const args = [null, undefined, NaN, "", 0, false];
+    args.forEach((a) => {
+      expect(() => {
+        lib.registerUser(a);
+      }).toThrow();
+    });
+  });
+  it("should return a user object if valid username is passed", () => {
+    const result = lib.registerUser("Mosh");
+    expect(result).toMatchObject({ username: "Mosh" });
+    expect(result.id).toBeGreaterThan(0);
+  });
+});
