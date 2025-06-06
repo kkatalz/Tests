@@ -1,5 +1,6 @@
 const lib = require("../lib");
 
+// Test numbers
 describe("absolute", () => {
   it("should return a pos number if input is positive", () => {
     const result = lib.absolute(1);
@@ -17,6 +18,7 @@ describe("absolute", () => {
   });
 });
 
+// Test Strings
 describe("greet", () => {
   it("should return the greeting messsage", () => {
     const result = lib.greet("Mosh");
@@ -24,6 +26,7 @@ describe("greet", () => {
   });
 });
 
+// Test aray
 describe("getCurrencies", () => {
   it("should return supported currencies", () => {
     const result = lib.getCurrencies();
@@ -31,6 +34,7 @@ describe("getCurrencies", () => {
   });
 });
 
+// Test object
 describe("getProduct", () => {
   it("should return the product with given id", () => {
     const result = lib.getProduct(1);
