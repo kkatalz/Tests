@@ -5,7 +5,7 @@ describe("fizzBuzz", () => {
     const args = [null, undefined, NaN, "", 0, false, {}, []];
     args.forEach((arg) => {
       expect(() => {
-        lib.fizzBuzz(a);
+        lib.fizzBuzz(arg);
       }).toThrow();
     });
   });
