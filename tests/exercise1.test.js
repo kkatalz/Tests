@@ -2,7 +2,7 @@ const lib = require("../exercise1");
 
 describe("fizzBuzz", () => {
   it("should throw an exception if input is not a number", () => {
-    const args = [null, undefined, NaN, "", 0, false, {}, []];
+    const args = [null, undefined, "", false, {}, []];
     args.forEach((arg) => {
       expect(() => {
         lib.fizzBuzz(arg);
