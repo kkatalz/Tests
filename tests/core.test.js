@@ -5,6 +5,7 @@ import {
   calculateDiscount,
   isPriceInRange,
   isValidUsername,
+  canDrive,
 } from "../src/core";
 
 describe("test suite", () => {
@@ -134,5 +135,29 @@ describe("isValidUserName", () => {
     expect(isValidUsername(null)).toBe(false);
     expect(isValidUsername(undefined)).toBe(false);
     expect(isValidUsername(1)).toBe(false);
+  });
+});
+
+describe("canDrive", () => {
+  const USlimit = 16;
+  const UKlimit = 17;
+
+  it("should check if countryCode is invalid", () => {
+    expect(canDrive(20, "UA")).toMatch(/invalid/i);
+  });
+
+  it("should return false if age is lower than limit in the US", () => {
+    expect(canDrive(USlimit - 1, "US")).toBe(false);
+  });
+
+  it("should return false if age is lower than limit in UK", () => {
+    expect(canDrive(UKlimit - 1, "UK")).toBe(false);
+  });
+
+  it("should return true if age is equal to or greather than the required age", () => {
+    expect(canDrive(USlimit, "US")).toBe(true);
+    expect(canDrive(USlimit + 100, "US")).toBe(true);
+    expect(canDrive(UKlimit, "UK")).toBe(true);
+    expect(canDrive(UKlimit + 100, "UK")).toBe(true);
   });
 });
