@@ -6,6 +6,7 @@ import {
   isPriceInRange,
   isValidUsername,
   canDrive,
+  fetchData,
 } from "../src/core";
 
 describe("test suite", () => {
@@ -152,5 +153,16 @@ describe("canDrive", () => {
     { age: 18, country: "UK", result: true },
   ])("should return $result for $age, $country", ({ age, country, result }) => {
     expect(canDrive(age, country)).toBe(result);
+  });
+});
+
+describe("fetchData", () => {
+  it("should return a promise that will resolve an array of numbers", async () => {
+    try {
+      const result = await fetchData();
+    } catch (error) {
+      expect(error).toHaveProperty("reason");
+      expect(error.reason).toMatch(/fail/i);
+    }
   });
 });
