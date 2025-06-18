@@ -4,6 +4,7 @@ import {
   validateUserInput,
   calculateDiscount,
   isPriceInRange,
+  isValidUsername,
 } from "../src/core";
 
 describe("test suite", () => {
@@ -109,5 +110,29 @@ describe("isPriceInRange", () => {
 
   it("should return true when the price is within the range", () => {
     expect(isPriceInRange(50, 0, 100)).toBe(true);
+  });
+});
+
+describe("isValidUserName", () => {
+  const minLength = 5;
+  const maxLength = 15;
+  it("should return false when the name length is longer than set limits", () => {
+    expect(isValidUsername("a".repeat(minLength - 1))).toBe(false);
+    expect(isValidUsername("a".repeat(maxLength + 1))).toBe(false);
+  });
+
+  it("should return true when the name is equal to the min or max", () => {
+    expect(isValidUsername("a".repeat(minLength))).toBe(true);
+    expect(isValidUsername("a".repeat(maxLength))).toBe(true);
+  });
+
+  it("should return true when the name is within the range", () => {
+    expect(isValidUsername("a".repeat(10))).toBe(true);
+  });
+
+  it("should return false for invalid input types", () => {
+    expect(isValidUsername(null)).toBe(false);
+    expect(isValidUsername(undefined)).toBe(false);
+    expect(isValidUsername(1)).toBe(false);
   });
 });
