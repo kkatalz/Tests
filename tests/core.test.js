@@ -146,18 +146,14 @@ describe("canDrive", () => {
     expect(canDrive(20, "UA")).toMatch(/invalid/i);
   });
 
-  it("should return false if age is lower than limit in the US", () => {
-    expect(canDrive(USlimit - 1, "US")).toBe(false);
-  });
-
-  it("should return false if age is lower than limit in UK", () => {
-    expect(canDrive(UKlimit - 1, "UK")).toBe(false);
-  });
-
-  it("should return true if age is equal to or greather than the required age", () => {
-    expect(canDrive(USlimit, "US")).toBe(true);
-    expect(canDrive(USlimit + 100, "US")).toBe(true);
-    expect(canDrive(UKlimit, "UK")).toBe(true);
-    expect(canDrive(UKlimit + 100, "UK")).toBe(true);
+  it.each([
+    { age: 15, country: "US", result: false },
+    { age: 16, country: "US", result: true },
+    { age: 17, country: "US", result: true },
+    { age: 16, country: "UK", result: false },
+    { age: 17, country: "UK", result: true },
+    { age: 18, country: "UK", result: true },
+  ])("should return $result for $age, $country", ({ age, country, result }) => {
+    expect(canDrive(age, country)).toBe(result);
   });
 });
