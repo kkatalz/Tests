@@ -1,4 +1,5 @@
 import { it, describe, expect } from "vitest";
+import { getCoupons } from "../src/core";
 
 describe("test suite", () => {
   it("should test case", () => {
@@ -18,3 +19,29 @@ describe("test suite", () => {
   });
 });
 
+describe("getCoupons", () => {
+  it("should check that array is not empty", () => {
+    expect(Array.isArray(getCoupons())).toBe(true);
+    expect(getCoupons().length).toBeGreaterThan(0);
+  });
+
+  it("should return an array with valid coupon codes", () => {
+    const coupons = getCoupons();
+    coupons.forEach((coupon) => {
+      expect(coupon).toHaveProperty("code");
+      expect(typeof coupon.code).toBe("string");
+      expect(coupon.code).toBeTruthy();
+    });
+  });
+
+  it("should return an array with valid coupon discounts", () => {
+    const coupons = getCoupons();
+    coupons.forEach((coupon) => {
+      expect(coupon).toHaveProperty("discount");
+      expect(typeof coupon.discount).toBe("number");
+      expect(coupon.discount).toBeTruthy();
+      expect(coupon.discount).toBeGreaterThanOrEqual(0);
+      expect(coupon.discount).toBeLessThanOrEqual(1);
+    });
+  });
+});
