@@ -6,6 +6,7 @@ import {
   submitOrder,
   signUp,
   login,
+  isOnline,
 } from "../src/mocking";
 import { getExchangeRate } from "../src/libs/currency";
 import { getShippingQuote } from "../src/libs/shipping";
@@ -155,5 +156,23 @@ describe("login", () => {
 
     const securityCode = spy.mock.results[0].value.toString();
     expect(sendEmail).toHaveBeenCalledWith(email, securityCode);
+  });
+});
+
+describe("isOnline", () => {
+  it("should return false if current time is outside opening hours", () => {
+    vi.setSystemTime("2025-06-19 07:59");
+    expect(isOnline()).toBe(false);
+
+    vi.setSystemTime("2025-06-19 20:01");
+    expect(isOnline()).toBe(false);
+  });
+
+  it("should return true if current time is within opening hours ", () => {
+    vi.setSystemTime("2025-06-19 08:00");
+    expect(isOnline()).toBe(true);
+   
+    vi.setSystemTime("2025-06-19 19:59");
+    expect(isOnline()).toBe(true);
   });
 });
